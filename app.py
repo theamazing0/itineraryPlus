@@ -10,6 +10,8 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 def index():
     return render_template('index.html')
 
+# TODO Route itinerary.html
+
 if __name__ == '__main__':
     app.run(debug = True, host = '0.0.0.0') # ! Remove debug = True after development
 
