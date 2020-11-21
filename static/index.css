@@ -1,1 +1,10 @@
-/* TODO Style the navbar */
+.titlePageDiv {
+    background-image: url("taj_mahal.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: cover;
+}
+
+.titleText {
+    padding: 70px 0;
+}
