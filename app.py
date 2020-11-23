@@ -10,6 +10,19 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 def index():
     return render_template('index.html')
 
+@app.route('/getuniqueid')
+def getuniqueid(methods=['GET', 'POST']):
+    givemethenextid = request.args.get('givemethenextid')
+    print('givemethenextid from request:  '+givemethenextid)
+    if givemethenextid == 'true' :
+        conn = sql.connect('database/myData.db')
+        cursor = conn.execute("SELECT currentID from CURRENT")
+        for row in cursor:
+            print ("CurrentID is ", row[0])
+            currentId = str(row[0])
+
+    return currentId
+
 # TODO Route itinerary.html
 
 if __name__ == '__main__':

@@ -1,5 +1,20 @@
 $(document).ready(function () {
-    
+    $( ".addModalOpener" ).click(function(){
+        console.log('addModalOpened')
+        $.ajax({
+                        url: "getuniqueid",
+                        method: "GET",
+                        data: {
+                            "givemethenextid" : "true"
+                        },
+                        success: function (result) {
+                            console.log(result)
+                            console.log('It got to changing the add id label')
+                            $('#uniqueIdAddLabel').html(result);
+                            console.log('its done')
+                        }
+                    });
+    });
 });
 
 

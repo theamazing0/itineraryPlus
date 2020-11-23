@@ -18,5 +18,7 @@ conn = sql.connect('database/myData.db')
 #          timestarted      TEXT    NOT NULL,
 #          timeended        TEXT    NOT NULL);''')
 
+# conn.execute('''CREATE TABLE CURRENT
+#          (currentID INT  NOT NULL);''')
 
 conn.close()

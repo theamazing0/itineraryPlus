@@ -28,8 +28,7 @@
                 <a class="navbar-brand" href="#">Itinerary+</a>
                 <li class="nav-item">
                     <!-- <a class="nav-link" href="#">New <i class="fa fa-plus-square" aria-hidden="true"></i></a> -->
-                    <a class="nav-link" href="#">New</a>
-                    <!-- TODO Add Func to Add -->
+                    <a data-target="#addModal" data-toggle="modal" class="nav-link addModalOpener" href="#addModal">New</a>
                 </li>
                 <li class="nav-item">
                     <!-- <a class="nav-link" href="#">Open <i class="fa fa-folder-open-o" aria-hidden="true"></i></a> -->
@@ -46,10 +45,9 @@
             <br>
             <main role="main" class="inner cover">
                 <h1 class="cover-heading startPageHeading">Itinerary+</h1>
-                <p class="lead">The future of travel planning. Just click create and it will <br> the rest. Simpily create an itinerary and edit from anywhere. <br>Share with others by just sending them the code.</p>
+                <p class="lead">Its more than an itinerary. Just click create and it will <br> the rest. Simpily create an itinerary and edit from anywhere. <br>Share with others by just sending them the code.</p>
                 <p class="lead">
-                    <a href="#" class="btn btn-lg btn-primary">Create an Itinerary</a>
-                    <!-- TODO Add func to create -->
+                    <a href="#addModal" data-toggle="modal" class="btn btn-lg btn-primary addModalOpener">Create an Itinerary</a>
                 </p>
             </main>
         </div>
@@ -67,15 +65,14 @@
                     <h5>Name</h5>
                     <input class="form-control" id="itinerarynameinput" type="text">
                     <h5>Unique Generated ID (Copy and Save)</h5>
-                    <p></p> <!-- * JS should auto add id here -->
-                    <label class="control-label text-danger" id = "addErrorBox"></label>
+                    <p id="uniqueIdAddLabel"></p> <!-- * JS should auto add id here -->
+                    <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" role="deleteAllCompleted">Delete All</button>
+                    <button type="button" class="btn btn-success" role="addNewItinerary">Create!</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- Delete Modal Ends Here -->
