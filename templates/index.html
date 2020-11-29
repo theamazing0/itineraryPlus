@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-item">
                     <!-- <a class="nav-link" href="#">Open <i class="fa fa-folder-open-o" aria-hidden="true"></i></a> -->
-                    <a class="nav-link" href="#">Open</a>
+                    <a data-target="#openModal" data-toggle="modal" class="nav-link openModalOpener" href="#">Open</a>
                     <!-- TODO add func to open -->
                 </li>
             </ul>
@@ -70,7 +70,6 @@
                         <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
                     </div>
                     <div class="modal-footer">
-                        <!-- TODO add func to final create button -->
                         <button type="button" role="finaladdbutton" class="btn btn-success"
                             role="addNewItinerary">Create!</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -79,7 +78,28 @@
             </div>
         </div>
         <!-- Delete Modal Ends Here -->
-        <!-- TODO create open modal -->
+        <div id="openModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Open an Itinerary</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Unique Id of Itinerary to Open</h5>
+                        <input class="form-control" id="openModalOpenThisId" type="text">
+                        <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" role="finalOpenModalOpener" class="btn btn-primary"
+                            role="addNewItinerary">Open</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>

@@ -32,6 +32,23 @@ $(document).ready(function () {
             });
         }
     );
+    $(document).on(
+        'click',
+        'button[role="finalOpenModalOpener"]',
+
+        function (e) {
+            $.ajax({
+                url: "finalOpenModalOpener",
+                method: "GET",
+                data: {
+                    "id": $('#openModalOpenThisId').val()
+                },
+                success: function (result) {
+                    document.location.href="/itinerary"; 
+                }
+            });
+        }
+    );
 });
 
 

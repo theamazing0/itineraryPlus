@@ -83,6 +83,16 @@ def finaladdbutton(methods=['GET', 'POST']):
 
     return "thisreturnstatementdoesnotmatter"
 
+@app.route('/finalOpenModalOpener')
+def finalOpenModalOpener(methods=['GET', 'POST']):
+
+    id = request.args.get('id')
+    print('id from request:  '+id)
+    
+    session['itineraryInUse'] = id
+
+    return "thisreturnstatementdoesnotmatter"
+
 
 if __name__ == '__main__':
     # ! Remove debug = True after development
