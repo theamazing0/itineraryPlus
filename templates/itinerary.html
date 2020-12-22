@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <!--* JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -9,15 +10,17 @@
 
         <!--* CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{url_for('static', filename='itinerary.css')}}">
-        
+
 
         <!--* Favicon -->
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     </head>
-    <body>
+
+    <body class = "pageBody">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
             <!-- Links -->
@@ -35,62 +38,73 @@
             </ul>
 
         </nav>
+
+        {{ myDays }}
         <br>
-          <div class="card itineraryControlCard text-center w-50">
+        <div class="card itineraryControlCard text-center shadow-lg p-3 mb-5 bg-white rounded w-50">
             <div class="card-body">
-              <h2 class="card-title">{{ myName }}</h2>
-              <p class="card-text uniqueIDOnCard">Unique Id: {{ itineraryInUseID }}</p>
-              <a href="#" class="btn btn-primary">Print</a>
+                <h2 class="card-title">{{ myName }}</h2>
+                <p class="card-text uniqueIDOnCard">Unique Id: {{ itineraryInUseID }}</p>
+                <a href="#" class="btn btn-primary">Print</a>
             </div>
-          </div>
-    
-    <!-- Add Modal Starts Here -->
-    <div id="addModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        </div>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Create an Itinerary</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <h5>Name</h5>
-                    <input class="form-control" id="itinerarynameinput" type="text">
-                    <h5>Unique Generated ID (Copy and Save)</h5>
-                    <p id="uniqueIdAddLabel"></p>
-                    <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" role="finaladdbutton" class="btn btn-success"
-                        role="addNewItinerary">Create!</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <br>
+        <div class="card dayCard shadow-lg p-3 mb-5 bg-white rounded myTransparentCard w-60">
+            <div class="card-body">
+                <h3 class="card-title">Day 1</h3>
+                <h4 class="font-weight-light dayDescription">Travel Day</h4>
+            </div>
+        </div>
+
+        <!-- Add Modal Starts Here -->
+        <div id="addModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create an Itinerary</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Name</h5>
+                        <input class="form-control" id="itinerarynameinput" type="text">
+                        <h5>Unique Generated ID (Copy and Save)</h5>
+                        <p id="uniqueIdAddLabel"></p>
+                        <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" role="finaladdbutton" class="btn btn-success"
+                            role="addNewItinerary">Create!</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Delete Modal Ends Here -->
-    <div id="openModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <!-- Delete Modal Ends Here -->
+        <div id="openModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Open an Itinerary</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <h5>Unique Id of Itinerary to Open</h5>
-                    <input class="form-control" id="openModalOpenThisId" type="text">
-                    <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" role="finalOpenModalOpener" class="btn btn-primary"
-                        role="addNewItinerary">Open</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Open an Itinerary</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Unique Id of Itinerary to Open</h5>
+                        <input class="form-control" id="openModalOpenThisId" type="text">
+                        <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" role="finalOpenModalOpener" class="btn btn-primary"
+                            role="addNewItinerary">Open</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </body>
+
 </html>

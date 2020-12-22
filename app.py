@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 import sqlite3
+import json
 
 app = Flask('__name__')
 app.secret_key = '(svfq%$&$*&%^&'
@@ -23,7 +24,33 @@ def itinerary():
     for row in itineraryInUseForHtml:
         if row[0] == int(itineraryInUseID):
             myName = row[1]
-    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName = myName)
+    allDays = conn.execute(
+        "SELECT dayid, itineraryid, name, description from DAY")
+
+    allEvents = conn.execute(
+        "SELECT dayID, type, timestarted, timeended, eventid from EVENT")
+
+    class Day():
+        def __init__(self, dayrow, eventrows):
+            self.dayrow = dayrow
+            self.eventrow = eventrows
+            
+
+    myDays = []
+
+    for row in allDays:
+        if row[1] == int(itineraryInUseID):
+            myEvents = []
+            for eventrow in allEvents:
+                if eventrow[0] == row[0]:
+                    myEvents.append(eventrow)
+            newDay = Day(row, myEvents)
+            myDays.append(newDay.__dict__)
+            myEvents = []
+
+    print(myDays)
+
+    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName = myName, myDays = json.dumps(myDays))
 
 
 @app.route('/getuniqueid')
@@ -61,8 +88,8 @@ def finaladdbutton(methods=['GET', 'POST']):
 
     conn.execute("INSERT INTO ITINERARY (id, name) \
       VALUES (?, ?)", (currentId, name))
-    conn.execute("INSERT INTO DAY (dayid,itineraryid, name) \
-      VALUES (?, ?, ?)", (currentdayid, currentId, 'Day 1'))
+    conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description) \
+      VALUES (?, ?, ?, ?)", (currentdayid, currentId, 'Day 1', 'Travel Day'))
     conn.execute("INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
       VALUES (?, ?, ?, ?, ?)", (currentdayid, 'Travel', '7:00 AM EST', '8:00 AM EST', currenteventid))
 

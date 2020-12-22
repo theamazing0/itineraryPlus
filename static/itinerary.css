@@ -5,6 +5,24 @@
     width: 8em;
 }
 
+.dayCard {
+    margin-left: auto;
+    margin-right: auto;
+    width: 42em;
+}
+
 .uniqueIDOnCard {
     font-size: larger;
+}
+
+.pageBody {
+    background-image: url("golden_gate_bridge.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: cover;
+}
+
+.myTransparentCard {
+    background-color: rgba(245, 245, 245, 1);
+    opacity: .8;
 }
