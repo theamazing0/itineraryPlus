@@ -27,28 +27,48 @@ $(document).ready(function () {
                     "name": $('#itinerarynameinput').val()
                 },
                 success: function (result) {
-                    document.location.href="/itinerary"; 
+                    document.location.href = "/itinerary";
                 }
             });
         }
     );
     $(document).on(
         'click',
-        'button[role="finalOpenModalOpener"]',
+        'button[role="finaladdbutton"]',
 
         function (e) {
             $.ajax({
-                url: "finalOpenModalOpener",
+                url: "finaladdbutton",
                 method: "GET",
                 data: {
-                    "id": $('#openModalOpenThisId').val()
+                    "name": $('#itinerarynameinput').val()
                 },
                 success: function (result) {
-                    document.location.href="/itinerary"; 
+                    document.location.href = "/itinerary";
                 }
             });
         }
     );
+    $(".dayEventsModalOpener").click(function () {
+        $('#dayEventsModal').modal('show');
+        myDayInfo = document.querySelector('.dayEventsModalOpener').id
+        console.log(myDayInfo)
+        myDayInfo = myDayInfo.replace(/'/g, '"')
+        myDayInfoDict = JSON.parse(myDayInfo)
+        eventrows = myDayInfoDict.eventrows
+        console.log(eventrows)
+        for (var i = 0; i < eventrows.length; i++) {
+            myEventRow = eventrows[i]
+
+            startTimeM = myEventRow[2]
+            endTimeM = myEventRow[3]
+
+            startTime = startTimeM.substring(0, 2) + ':' + startTimeM.substring(2)
+            endTime = endTimeM.substring(0, 2) + ':' + endTimeM.substring(2)
+            $('#dayEventsModalTable').append("<tr><th>Event</th><th>Start</th><th>End</th></tr><tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td></tr>")
+        }
+        // $('#dayEventsModalTable').append('');
+    });
 });
 
 

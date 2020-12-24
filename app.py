@@ -6,6 +6,8 @@ app = Flask('__name__')
 app.secret_key = '(svfq%$&$*&%^&'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
+myName = None
+
 # * Routes
 
 
@@ -16,6 +18,7 @@ def index():
 
 @app.route('/itinerary')
 def itinerary():
+    global myName
     itineraryInUseID = session['itineraryInUse']
     print(itineraryInUseID)
     conn = sqlite3.connect('database/myData.db')
@@ -33,7 +36,7 @@ def itinerary():
     class Day():
         def __init__(self, dayrow, eventrows):
             self.dayrow = dayrow
-            self.eventrow = eventrows
+            self.eventrows = eventrows
             
 
     myDays = []
@@ -48,9 +51,12 @@ def itinerary():
             myDays.append(newDay.__dict__)
             myEvents = []
 
-    print(myDays)
+    
+    dumpeddays = json.dumps(myDays)
+    loadedDays = json.loads(dumpeddays)
+    print(loadedDays)
 
-    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName = myName, myDays = json.dumps(myDays))
+    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName = myName, myDays = loadedDays)
 
 
 @app.route('/getuniqueid')
@@ -91,7 +97,7 @@ def finaladdbutton(methods=['GET', 'POST']):
     conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description) \
       VALUES (?, ?, ?, ?)", (currentdayid, currentId, 'Day 1', 'Travel Day'))
     conn.execute("INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
-      VALUES (?, ?, ?, ?, ?)", (currentdayid, 'Travel', '7:00 AM EST', '8:00 AM EST', currenteventid))
+      VALUES (?, ?, ?, ?, ?)", (currentdayid, 'Travel', '0700', '0800', currenteventid))
 
     newcurrentid = str(int(currentId) + 1)
     newcurrentdayid = str(int(currentdayid) + 1)
