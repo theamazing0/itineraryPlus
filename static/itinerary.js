@@ -17,34 +17,36 @@ $(document).ready(function () {
     });
     $(document).on(
         'click',
-        'button[role="finaladdbutton"]',
+        'button[role="finalOpenModalOpener"]',
 
         function (e) {
             $.ajax({
-                url: "finaladdbutton",
+                url: "finalOpenModalOpener",
                 method: "GET",
                 data: {
-                    "name": $('#itinerarynameinput').val()
+                    "id": $('#openModalOpenThisId').val()
                 },
                 success: function (result) {
-                    document.location.href = "/itinerary";
+                    document.location.href="/itinerary"; 
                 }
             });
         }
     );
     $(document).on(
         'click',
-        'button[role="finaladdbutton"]',
+        'button[role="finalAddDayModalAdder"]',
 
         function (e) {
             $.ajax({
-                url: "finaladdbutton",
+                url: "finalAddDayModalAdder",
                 method: "GET",
                 data: {
-                    "name": $('#itinerarynameinput').val()
+                    "name": $('#addDayModalNameInput').val(),
+                    "description": $('#addDayModalDescriptionBox').val(),
+                    "myInteneraryID": $('#InteneraryIdLabel').html()
                 },
                 success: function (result) {
-                    document.location.href = "/itinerary";
+                    location.reload();
                 }
             });
         }

@@ -8,7 +8,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 myName = None
 
-# * Routes
+# MARK Routes
 
 
 @app.route('/')
@@ -37,7 +37,6 @@ def itinerary():
         def __init__(self, dayrow, eventrows):
             self.dayrow = dayrow
             self.eventrows = eventrows
-            
 
     myDays = []
 
@@ -51,12 +50,11 @@ def itinerary():
             myDays.append(newDay.__dict__)
             myEvents = []
 
-    
     dumpeddays = json.dumps(myDays)
     loadedDays = json.loads(dumpeddays)
     print(loadedDays)
 
-    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName = myName, myDays = loadedDays)
+    return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName=myName, myDays=loadedDays)
 
 
 @app.route('/getuniqueid')
@@ -116,13 +114,44 @@ def finaladdbutton(methods=['GET', 'POST']):
 
     return "thisreturnstatementdoesnotmatter"
 
+
 @app.route('/finalOpenModalOpener')
 def finalOpenModalOpener(methods=['GET', 'POST']):
-
     id = request.args.get('id')
     print('id from request:  '+id)
-    
+
     session['itineraryInUse'] = id
+
+    return "thisreturnstatementdoesnotmatter"
+
+
+@app.route('/finalAddDayModalAdder')
+def finalAddDayModalAdder(methods=['GET', 'POST']):
+    name = request.args.get('name')
+    print('name from request:  '+name)
+
+    description = request.args.get('description')
+    print('description from request:  '+description)
+
+    myInteneraryID = request.args.get('myInteneraryID')
+    print('myInteneraryID from request:  '+myInteneraryID)
+
+    conn = sqlite3.connect('database/myData.db')
+
+    cursordayid = conn.execute("SELECT currentdayID from CURRENTDAY")
+    for row in cursordayid:
+        print("CurrentdayID is ", row[0])
+        currentdayid = str(row[0])
+
+    conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description) \
+      VALUES (?, ?, ?, ?)", (currentdayid, myInteneraryID, name, description))
+
+    newcurrentdayid = str(int(currentdayid) + 1)
+
+    conn.execute("UPDATE CURRENTDAY set currentdayID = ? where currentdayID = ?",
+                 (newcurrentdayid, currentdayid))
+    
+    conn.commit()
 
     return "thisreturnstatementdoesnotmatter"
 

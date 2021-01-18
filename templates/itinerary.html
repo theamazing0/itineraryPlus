@@ -20,7 +20,7 @@
 
     </head>
 
-    <body class = "pageBody">
+    <body class="pageBody">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
             <!-- Links -->
@@ -43,9 +43,9 @@
         <div class="card itineraryControlCard text-center shadow-lg p-3 mb-5 bg-white rounded w-50">
             <div class="card-body">
                 <h2 class="card-title">{{ myName }}</h2>
-                <p class="card-text uniqueIDOnCard">Unique Id: {{ itineraryInUseID }}</p>
+                <p class="card-text uniqueIDOnCard">Unique Id: <span id = "InteneraryIdLabel">{{ itineraryInUseID }}</span></p>
                 <a href="#" class="btn btn-secondary"><i class="fa fa-print" aria-hidden="true"></i></a>
-                <a href="#" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a href="#addDayModal" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 <a href="#" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             </div>
@@ -58,12 +58,13 @@
                 <h3 class="card-title">{% set thisDay = day['dayrow'] %}{{ thisDay[2] }}</h3>
                 <h4 class="font-weight-light dayDescription">{{ thisDay[3] }}</h4>
                 <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <a id="{{ day }}" class="btn btn-primary dayEventsModalOpener" data-toggle="#dayEventsModal"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                <a id="{{ day }}" class="btn btn-primary dayEventsModalOpener" data-toggle="#dayEventsModal"><i
+                        class="fa fa-info-circle" aria-hidden="true"></i></a>
             </div>
         </div>
         {% endfor %}
 
-        <!-- Add Modal Starts Here -->
+        <!--MARK Add Modal-->
         <div id="addModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -88,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <!-- Delete Modal Ends Here -->
+        <!--MARK Delete Modal-->
         <div id="openModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -112,6 +113,7 @@
             </div>
         </div>
 
+        <!--MARK DayEvents Modal-->
         <div id="dayEventsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -123,7 +125,7 @@
                     </div>
                     <div class="modal-body">
                         <table id="dayEventsModalTable" width="80%">
-                        </table>                        
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" role="finalOpenModalOpener" class="btn btn-primary"
@@ -133,6 +135,8 @@
                 </div>
             </div>
         </div>
+
+        <!--MARK AddDay Modal-->
         <div id="addDayModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -143,11 +147,14 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        
+                        <h5>Name</h5>
+                        <input class="form-control" id="addDayModalNameInput" type="text">
+                        <h5>Description</h5>
+                        <textarea class="form-control md-textarea" rows="4" id="addDayModalDescriptionBox"
+                        maxlength="600"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" role="finalOpenModalOpener" class="btn btn-success"
-                            role="addNewItinerary">Create</button>
+                        <button type="button" role="finalAddDayModalAdder" class="btn btn-success">Create</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
