@@ -90,12 +90,12 @@ def finaladdbutton(methods=['GET', 'POST']):
         print("CurrenteventID is ", row[0])
         currenteventid = str(row[0])
 
-    conn.execute("INSERT INTO ITINERARY (id, name) \
-      VALUES (?, ?)", (currentId, name))
-    conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description) \
-      VALUES (?, ?, ?, ?)", (currentdayid, currentId, 'Day 1', 'Travel Day'))
-    conn.execute("INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
-      VALUES (?, ?, ?, ?, ?)", (currentdayid, 'Travel', '0700', '0800', currenteventid))
+    conn.execute("""INSERT INTO ITINERARY (id, name) \
+      VALUES (?, ?)""", (currentId, name))
+    conn.execute("""INSERT INTO DAY (dayid,itineraryid, name, description, inUse) \
+      VALUES (?, ?, ?, ?, ?)""", (currentdayid, currentId, 'Day 1', 'Travel Day', 0))
+    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
+      VALUES (?, ?, ?, ?, ?)""", (currentdayid, 'Travel', '0700', '0800', currenteventid))
 
     newcurrentid = str(int(currentId) + 1)
     newcurrentdayid = str(int(currentdayid) + 1)
@@ -143,17 +143,37 @@ def finalAddDayModalAdder(methods=['GET', 'POST']):
         print("CurrentdayID is ", row[0])
         currentdayid = str(row[0])
 
-    conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description) \
-      VALUES (?, ?, ?, ?)", (currentdayid, myInteneraryID, name, description))
+    conn.execute("INSERT INTO DAY (dayid,itineraryid, name, description, inUse) \
+      VALUES (?, ?, ?, ?, ?)", (currentdayid, myInteneraryID, name, description, 0))
 
     newcurrentdayid = str(int(currentdayid) + 1)
 
     conn.execute("UPDATE CURRENTDAY set currentdayID = ? where currentdayID = ?",
                  (newcurrentdayid, currentdayid))
-    
+
     conn.commit()
 
     return "thisreturnstatementdoesnotmatter"
+
+
+@app.route('/finalDayDelete')
+def finalDayDelete(methods=['GET', 'POST']):
+    dayToDeleteID = request.args.get('dayToDeleteID')
+    print('dayToDeleteID from request: ' + dayToDeleteID)
+
+    conn = sqlite3.connect('database/myData.db')
+
+    conn.execute("UPDATE DAY set inUse = ? where dayid = ?",
+                 (1, dayToDeleteID))
+
+    conn.execute("DELETE from DAY where inUse = 1")
+
+    conn.commit()
+    # deleteDaySubstitutionArray = (dayToDeleteID,)
+
+    # conn.execute(deleteDaySQL, deleteDaySubstitutionArray)
+
+    return('thisreturnstatementdoesnotmatter')
 
 
 if __name__ == '__main__':

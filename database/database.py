@@ -1,3 +1,6 @@
+
+# Creates Database, Run file before starting server
+
 import sqlite3 as sql
 
 conn = sql.connect('database/myData.db')
@@ -10,7 +13,11 @@ conn.execute('''CREATE TABLE DAY
         (dayid INT PRIMARY KEY  NOT NULL,
         itineraryid INT NOT NULL,  
         name           TEXT    NOT NULL,
-        description    TEXT    );''')
+        description    TEXT,
+        inUse          INT    NOT NULL);''')
+# inUse is to be treated as a variable
+# 0 = True
+# 1 = False
 
 conn.execute('''CREATE TABLE EVENT
           (dayID         INT     NOT NULL,

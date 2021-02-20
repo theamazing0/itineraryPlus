@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    // * Variables
+    dayToDeleteID = 0
+
+    // * JQ Events
     $(".addModalOpener").click(function () {
         console.log('addModalOpened')
         $.ajax({
@@ -17,6 +21,23 @@ $(document).ready(function () {
     });
     $(document).on(
         'click',
+        'button[role="finaladdbutton"]',
+
+        function (e) {
+            $.ajax({
+                url: "finaladdbutton",
+                method: "GET",
+                data: {
+                    "name": $('#itinerarynameinput').val()
+                },
+                success: function (result) {
+                    document.location.href="/itinerary"; 
+                }
+            });
+        }
+    );
+    $(document).on(
+        'click',
         'button[role="finalOpenModalOpener"]',
 
         function (e) {
@@ -27,7 +48,7 @@ $(document).ready(function () {
                     "id": $('#openModalOpenThisId').val()
                 },
                 success: function (result) {
-                    document.location.href="/itinerary"; 
+                    document.location.href = "/itinerary";
                 }
             });
         }
@@ -53,12 +74,15 @@ $(document).ready(function () {
     );
     $(".dayEventsModalOpener").click(function () {
         $('#dayEventsModal').modal('show');
+        $("#dayEventsModalTable tr").remove();
+        $("#dayEventsModalTable th").remove();
         myDayInfo = document.querySelector('.dayEventsModalOpener').id
         console.log(myDayInfo)
         myDayInfo = myDayInfo.replace(/'/g, '"')
         myDayInfoDict = JSON.parse(myDayInfo)
         eventrows = myDayInfoDict.eventrows
         console.log(eventrows)
+        $('#dayEventsModalTable').append("<tr><th>Event</th><th>Start</th><th>End</th></tr>")
         for (var i = 0; i < eventrows.length; i++) {
             myEventRow = eventrows[i]
 
@@ -67,10 +91,39 @@ $(document).ready(function () {
 
             startTime = startTimeM.substring(0, 2) + ':' + startTimeM.substring(2)
             endTime = endTimeM.substring(0, 2) + ':' + endTimeM.substring(2)
-            $('#dayEventsModalTable').append("<tr><th>Event</th><th>Start</th><th>End</th></tr><tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td></tr>")
+            $('#dayEventsModalTable').append("<tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td></tr>")
         }
         // $('#dayEventsModalTable').append('');
     });
+
+    $(".deleteDayModalOpener").click(function () {
+        $('#deleteDayModal').modal('show');
+        dayToDeleteInfo = document.querySelector('.deleteDayModalOpener').id
+        console.log(dayToDeleteInfo)
+        dayToDeleteInfo = dayToDeleteInfo.replace(/'/g, '"')
+        dayToDeleteInfoDict = JSON.parse(dayToDeleteInfo)
+        dayToDeleteDayRow = dayToDeleteInfoDict.dayrow
+        dayToDeleteID = dayToDeleteDayRow[0]
+        console.log(dayToDeleteID)
+    });
+    $(document).on(
+        'click',
+        'button[role="finalDayDeleterButton"]',
+
+        function (e) {
+            console.log('Javascript has recognized the clicking of the finalDayDeleterButton')
+            $.ajax({
+                url: "finalDayDelete",
+                method: "GET",
+                data: {
+                    "dayToDeleteID": dayToDeleteID
+                },
+                success: function (result) {
+                    location.reload()
+                }
+            });
+        }
+    );
 });
 
 
