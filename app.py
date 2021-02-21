@@ -95,7 +95,7 @@ def finaladdbutton(methods=['GET', 'POST']):
     conn.execute("""INSERT INTO DAY (dayid,itineraryid, name, description, inUse) \
       VALUES (?, ?, ?, ?, ?)""", (currentdayid, currentId, 'Day 1', 'Travel Day', 0))
     conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
-      VALUES (?, ?, ?, ?, ?)""", (currentdayid, 'Travel', '0700', '0800', currenteventid))
+      VALUES (?, ?, ?, ?, ?)""", (currentdayid, 'Travel', '7:00 AM', '8:00 AM', currenteventid))
 
     newcurrentid = str(int(currentId) + 1)
     newcurrentdayid = str(int(currentdayid) + 1)
@@ -174,6 +174,40 @@ def finalDayDelete(methods=['GET', 'POST']):
     # conn.execute(deleteDaySQL, deleteDaySubstitutionArray)
 
     return('thisreturnstatementdoesnotmatter')
+
+
+@app.route('/addEvent')
+def addtask(methods=['GET', 'POST']):
+
+    # Ajax
+    dayid = request.args.get('dayid')
+    print('dayid from request:  '+dayid)
+    eventType = request.args.get('eventType')
+    print('eventType from request:  '+eventType)
+    timeStarted = request.args.get('timeStarted')
+    print('timeStarted from request:  '+timeStarted)
+    timeEnded = request.args.get('timeEnded')
+    print('timeEnded from request:  '+timeEnded)
+
+    # Sqlite
+    conn = sqlite3.connect('database/myData.db')
+
+    cursoreventid = conn.execute("SELECT currenteventID from CURRENTEVENT")
+    for row in cursoreventid:
+        print("CurrenteventID is ", row[0])
+        currenteventid = str(row[0])
+
+    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
+      VALUES (?, ?, ?, ?, ?)""", (dayid, eventType, timeStarted, timeEnded, currenteventid))
+
+    newcurrenteventid = str(int(currenteventid) + 1)
+
+    conn.execute("UPDATE CURRENTEVENT set currenteventID = ? where currenteventID = ?",
+                 (newcurrenteventid, currenteventid))
+
+    conn.commit()
+
+    return "thisreturnstatementdoesnotmatter"
 
 
 if __name__ == '__main__':
