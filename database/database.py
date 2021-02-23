@@ -24,7 +24,11 @@ conn.execute('''CREATE TABLE EVENT
           type             TEXT      NOT NULL,
           timestarted      TEXT    NOT NULL,
           timeended        TEXT    NOT NULL,
-          eventid         INT  PRIMARY KEY    NOT NULL);''')
+          eventid         INT  PRIMARY KEY    NOT NULL,
+          inUse          INT    NOT NULL);''')
+# inUse is to be treated as a variable
+# 0 = True
+# 1 = False
 
 conn.execute('''CREATE TABLE CURRENT
           (currentID INT  NOT NULL);''')

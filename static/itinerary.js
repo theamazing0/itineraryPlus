@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // * Variables
     dayToDeleteID = 0
+    eventToDeleteID = 0
 
     // * JQ Events
 
@@ -92,14 +93,16 @@ $(document).ready(function () {
         dayrow = myDayInfoDict.dayrow
         console.log(eventrows)
         $('.addEventButton').attr('id', dayrow[0]);
-        $('#dayEventsModalTable').append("<tr><th>Event</th><th>Start</th><th>End</th></tr>")
+        $('#dayEventsModalTable').append("<tr><th>Event</th><th>Start</th><th>End</th><th></th></tr>")
         for (var i = 0; i < eventrows.length; i++) {
             myEventRow = eventrows[i]
 
             startTime = myEventRow[2]
             endTime = myEventRow[3]
 
-            $('#dayEventsModalTable').append("<tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td></tr>")
+            $('#dayEventsModalTable').append("<tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td><td id = '" + myEventRow[4] + "'><button type='button' class='btn btn-outline-danger' id = 'deleteEventButton'><i class='fa fa-trash' aria-hidden='true'></i></button></td></tr>")
+            //$('#dayEventsModalTable').append("<tr><td>" + myEventRow[1] + "</td><td>" + startTime + "</td><td>" + endTime + "</td><td><div style='display: inline' id = '" + myEventRow[4] + "'></div><button type=\"button\" class=\"btn btn-success addEventButton\"><i class=\"fa fa-plus\" aria-hidden=\"true\"></i></button></td></tr>")
+
         }
         // $('#dayEventsModalTable').append('');
     });
@@ -186,7 +189,41 @@ $(document).ready(function () {
     $(".addEventButton").click(function () {
         $('#addEventModal').modal('show');
     });
-    // TODO Add Delete Event Functionality
+    // Delete Event Button
+    $('#dayEventsModalTable').on(
+        'click',
+        '#deleteEventButton',
+
+        function () {
+            console.log('Now opening deleteEventModal')
+            eventToDeleteInfoElement = $(this).closest("td");
+            eventToDeleteID = eventToDeleteInfoElement.attr('id');
+
+            console.log(eventToDeleteInfoElement)
+            console.log(eventToDeleteID)
+
+            $('#deleteEventModal').modal('show');
+        }
+    );
+    // Final Delete Event Button
+    $(document).on(
+        'click',
+        '#finalEventDeleterButton',
+
+        function () {
+            console.log('Now opening FinaldeleteEventModal')
+            $.ajax({
+                url: "finalEventDelete",
+                method: "GET",
+                data: {
+                    "eventToDeleteID": eventToDeleteID
+                },
+                success: function (result) {
+                    location.reload()
+                }
+            });
+        }
+    );
 });
 
 

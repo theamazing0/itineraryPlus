@@ -8,7 +8,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 myName = None
 
-# MARK Routes
+# * Routes
 
 
 @app.route('/')
@@ -27,11 +27,9 @@ def itinerary():
     for row in itineraryInUseForHtml:
         if row[0] == int(itineraryInUseID):
             myName = row[1]
-    allDays = conn.execute(
-        "SELECT dayid, itineraryid, name, description from DAY")
 
-    allEvents = conn.execute(
-        "SELECT dayID, type, timestarted, timeended, eventid from EVENT")
+    usedDays = conn.execute(
+        "SELECT dayid, itineraryid, name, description from DAY where itineraryid = ?", (itineraryInUseID))
 
     class Day():
         def __init__(self, dayrow, eventrows):
@@ -40,15 +38,29 @@ def itinerary():
 
     myDays = []
 
-    for row in allDays:
-        if row[1] == int(itineraryInUseID):
-            myEvents = []
-            for eventrow in allEvents:
-                if eventrow[0] == row[0]:
-                    myEvents.append(eventrow)
-            newDay = Day(row, myEvents)
-            myDays.append(newDay.__dict__)
-            myEvents = []
+    for row in usedDays:
+        usedEvents = conn.execute(
+            "SELECT dayID, type, timestarted, timeended, eventid from EVENT where dayID = " + str(row[0]))
+        usedSerializableEvents = []
+        for eventrow in usedEvents:
+            usedSerializableEvents.append(eventrow)
+        newDay = Day(row, usedSerializableEvents)
+        myDays.append(newDay.__dict__)
+
+    # allEvents = conn.execute(
+    #     "SELECT dayID, type, timestarted, timeended, eventid from EVENT")
+
+    # for row in allDays:
+    #     if row[1] == int(itineraryInUseID):
+    #         myEvents = []
+    #         print("rowcount of allEvents: ")
+    #         for eventrow in allEvents:
+    #             if eventrow[0] == row[0]:
+    #                 myEvents.append(eventrow)
+    #         newDay = Day(row, myEvents)
+    #         myDays.append(newDay.__dict__)
+    #         print("One Used Day Over")
+    #     print("One Day Over")
 
     dumpeddays = json.dumps(myDays)
     loadedDays = json.loads(dumpeddays)
@@ -94,8 +106,8 @@ def finaladdbutton(methods=['GET', 'POST']):
       VALUES (?, ?)""", (currentId, name))
     conn.execute("""INSERT INTO DAY (dayid,itineraryid, name, description, inUse) \
       VALUES (?, ?, ?, ?, ?)""", (currentdayid, currentId, 'Day 1', 'Travel Day', 0))
-    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
-      VALUES (?, ?, ?, ?, ?)""", (currentdayid, 'Travel', '7:00 AM', '8:00 AM', currenteventid))
+    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid, inUse) \
+      VALUES (?, ?, ?, ?, ?, ?)""", (currentdayid, 'Travel', '7:00 AM', '8:00 AM', currenteventid, 0))
 
     newcurrentid = str(int(currentId) + 1)
     newcurrentdayid = str(int(currentdayid) + 1)
@@ -208,6 +220,25 @@ def addtask(methods=['GET', 'POST']):
     conn.commit()
 
     return "thisreturnstatementdoesnotmatter"
+
+@app.route('/finalEventDelete')
+def finalEventDelete(methods=['GET', 'POST']):
+    eventToDeleteID = request.args.get('eventToDeleteID')
+    print('eventToDeleteID from request: ' + eventToDeleteID)
+
+    conn = sqlite3.connect('database/myData.db')
+
+    conn.execute("UPDATE EVENT set inUse = ? where eventid = ?",
+                 (1, eventToDeleteID))
+
+    conn.execute("DELETE from EVENT where inUse = 1")
+
+    conn.commit()
+    # deleteDaySubstitutionArray = (dayToDeleteID,)
+
+    # conn.execute(deleteDaySQL, deleteDaySubstitutionArray)
+
+    return('thisreturnstatementdoesnotmatter')
 
 
 if __name__ == '__main__':
