@@ -66,6 +66,8 @@ def itinerary():
     loadedDays = json.loads(dumpeddays)
     print(loadedDays)
 
+    conn.close()
+
     return render_template('itinerary.html', itineraryInUseID=itineraryInUseID, myName=myName, myDays=loadedDays)
 
 
@@ -79,6 +81,8 @@ def getuniqueid(methods=['GET', 'POST']):
         for row in cursor:
             print("CurrentID is ", row[0])
             currentId = str(row[0])
+
+    conn.close()
 
     return currentId
 
@@ -124,6 +128,8 @@ def finaladdbutton(methods=['GET', 'POST']):
 
     session['itineraryInUse'] = currentId
 
+    conn.close()
+
     return "thisreturnstatementdoesnotmatter"
 
 
@@ -165,6 +171,8 @@ def finalAddDayModalAdder(methods=['GET', 'POST']):
 
     conn.commit()
 
+    conn.close()
+
     return "thisreturnstatementdoesnotmatter"
 
 
@@ -184,6 +192,8 @@ def finalDayDelete(methods=['GET', 'POST']):
     # deleteDaySubstitutionArray = (dayToDeleteID,)
 
     # conn.execute(deleteDaySQL, deleteDaySubstitutionArray)
+
+    conn.close()
 
     return('thisreturnstatementdoesnotmatter')
 
@@ -209,8 +219,8 @@ def addtask(methods=['GET', 'POST']):
         print("CurrenteventID is ", row[0])
         currenteventid = str(row[0])
 
-    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid) \
-      VALUES (?, ?, ?, ?, ?)""", (dayid, eventType, timeStarted, timeEnded, currenteventid))
+    conn.execute("""INSERT INTO EVENT (dayID, type, timestarted, timeended, eventid, inUse) \
+      VALUES (?, ?, ?, ?, ?, ?)""", (dayid, eventType, timeStarted, timeEnded, currenteventid, '0'))
 
     newcurrenteventid = str(int(currenteventid) + 1)
 
@@ -218,6 +228,8 @@ def addtask(methods=['GET', 'POST']):
                  (newcurrenteventid, currenteventid))
 
     conn.commit()
+
+    conn.close()
 
     return "thisreturnstatementdoesnotmatter"
 
@@ -238,7 +250,25 @@ def finalEventDelete(methods=['GET', 'POST']):
 
     # conn.execute(deleteDaySQL, deleteDaySubstitutionArray)
 
+    conn.close()
+
     return('thisreturnstatementdoesnotmatter')
+
+@app.route('/getItineraries')
+def getItineraries(methods=['GET', 'POST']):
+    conn = sqlite3.connect('database/myData.db')
+    cursor = conn.execute("SELECT id, name from ITINERARY")
+
+    jsonSerializableItineraries = []
+
+    for itineraryRow in cursor:
+            jsonSerializableItineraries.append(itineraryRow)
+
+    dumpedItineraries = json.dumps(jsonSerializableItineraries)
+    loadedItineraries = json.loads(dumpedItineraries)
+
+    return str(loadedItineraries)
+
 
 
 if __name__ == '__main__':

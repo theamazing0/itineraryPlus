@@ -50,7 +50,7 @@ $(document).ready(function () {
                 url: "finalOpenModalOpener",
                 method: "GET",
                 data: {
-                    "id": $('#openModalOpenThisId').val()
+                    "id": $('#itineraryDropdownOptions').val()
                 },
                 success: function (result) {
                     document.location.href = "/itinerary";
@@ -224,6 +224,23 @@ $(document).ready(function () {
             });
         }
     );
+    $(".openItineraryModalOpener").click(function () {
+        $.ajax({
+            url: "/getItineraries",
+            method: "GET",
+            success: function (result) {
+                $("#itineraryDropdownOptions option").remove();
+                $('#itineraryDropdownOptions').append("<option selected>---Select Itinerary---</option>")
+                jsonLoadableResult = result.replace(/'/g, '"')
+                jsonResult = JSON.parse(jsonLoadableResult)
+                for (var i = 0; i < jsonResult.length; i++) {
+                    console.log(jsonResult[i])
+                    $('#itineraryDropdownOptions').append("<option value='" + jsonResult[i][0] + "'>" + jsonResult[i][1] + "</option>")
+                }
+            }
+        });
+        $('#openModal').modal('show')
+    })
 });
 
 

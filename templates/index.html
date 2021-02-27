@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-item">
                     <!-- <a class="nav-link" href="#">Open <i class="fa fa-folder-open-o" aria-hidden="true"></i></a> -->
-                    <a data-target="#openModal" data-toggle="modal" class="nav-link openModalOpener" href="#">Open</a>
+                    <a data-toggle="modal" class="nav-link openModalOpener openItineraryModalOpener" role = "openItineraryModalOpener">Open</a>
                 </li>
             </ul>
 
@@ -41,10 +41,10 @@
             <br>
             <br>
             <br>
+            <br>
             <main role="main" class="inner cover">
                 <h1 class="cover-heading startPageHeading">Itinerary+</h1>
-                <p class="lead">Its more than an itinerary. Just click create and it will <br> the rest. Simpily create
-                    an itinerary and edit from anywhere. <br>Share with others by just sending them the code.</p>
+                <p class="lead">Its more than an itinerary. Just click create and it will <br> do the rest. Discover the world with Itinerary+</p>
                 <p class="lead">
                     <a href="#addModal" data-toggle="modal" class="btn btn-lg btn-primary addModalOpener">Create an
                         Itinerary</a>
@@ -87,8 +87,20 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <label>Unique Id of Itinerary to Open</label>
-                        <input class="form-control" id="openModalOpenThisId" type="text">
+
+                        <!-- <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"id="itineraryDropdown" 
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ---Select Itinerary---
+                        </a> -->
+
+                        <select class="form-select form-control" aria-label="Default select example" id = "itineraryDropdownOptions">
+                            <option selected>---Select Itinerary---</option>
+                          </select>
+
+                        <!-- <div class="dropdown-menu" aria-labelledby="itineraryDropdown" id = "itineraryDropdownOptions">
+                        </div> -->
+
+                        <!-- <input class="form-control" id="openModalOpenThisId" type="text"> -->
                         <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
                     </div>
                     <div class="modal-footer">
