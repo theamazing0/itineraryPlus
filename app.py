@@ -29,7 +29,7 @@ def itinerary():
             myName = row[1]
 
     usedDays = conn.execute(
-        "SELECT dayid, itineraryid, name, description from DAY where itineraryid = ?", (itineraryInUseID))
+        "SELECT dayid, itineraryid, name, description from DAY where itineraryid = ?", (itineraryInUseID,))
 
     class Day():
         def __init__(self, dayrow, eventrows):

@@ -1,0 +1,57 @@
+<!-- Add Modal Starts Here -->
+<div id="addModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create an Itinerary</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>Name</label>
+                <input class="form-control" id="itinerarynameinput" type="text">
+            </div>
+            <div class="modal-footer">
+                <button type="button" role="finaladdbutton" class="btn btn-success"
+                    role="addNewItinerary">Create!</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal Ends Here -->
+<div id="openModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Open an Itinerary</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"id="itineraryDropdown" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ---Select Itinerary---
+                </a> -->
+
+                <select class="form-select form-control" aria-label="Default select example" id = "itineraryDropdownOptions">
+                    <option selected>---Select Itinerary---</option>
+                  </select>
+
+                <!-- <div class="dropdown-menu" aria-labelledby="itineraryDropdown" id = "itineraryDropdownOptions">
+                </div> -->
+
+                <!-- <input class="form-control" id="openModalOpenThisId" type="text"> -->
+                <!-- <label class="control-label text-danger" id = "addErrorBox"></label> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" role="finalOpenModalOpener" class="btn btn-primary"
+                    role="addNewItinerary">Open</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
