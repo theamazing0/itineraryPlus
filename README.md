@@ -3,7 +3,9 @@
 ## How To Run
 
 1. Install Python from python.org (Python 3.9 originally used)
+
 2. Open the project from the Terminal
+
 3. Create a Vitual Enviroment (Proccess May Differ from Operating System and Shell Used)
 
 Python Docs show how to create a venv: https://docs.python.org/3/library/venv.html
