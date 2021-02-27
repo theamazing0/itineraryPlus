@@ -10,9 +10,9 @@ Python Docs show how to create a venv: https://docs.python.org/3/library/venv.ht
 
 4. Activate the venv (Proccess May Differ from Operating System and Shell Used)
 
-On Windows: tutorial-env\Scripts\activate.bat
+On Windows: venv\Scripts\activate.bat
 
-On Unix or Macos: source tutorial-env/bin/activate
+On Unix or Macos: source venv/bin/activate
 
 (From Python Docs)
 
