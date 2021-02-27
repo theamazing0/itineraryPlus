@@ -40,3 +40,17 @@ From the computer the server is being run on: by going to http://0.0.0.0:5000
 From a computer on the same network as the server: http://SERVER_LOCAL_IP:5000
 
 SERVER_LOCAL_IP = The local IP Adress of the server
+
+## Credits
+
+### Taj Mahal: 
+
+By Joel Godwin - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=59621210
+
+### Golden Gate Bridge:
+
+By Rich Niewiroski Jr. - http://www.projectrich.com/gallery, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1520007
+
+### Favicon
+
+Made by https://www.flaticon.com/authors/mynamepong (mynamepong) from https://www.flaticon.com/ (flaticon)

@@ -5,59 +5,6 @@ $(document).ready(function () {
 
     // * JQ Events
 
-    // Add Modal Opener
-    $(".addModalOpener").click(function () {
-        console.log('addModalOpened')
-        $.ajax({
-            url: "getuniqueid",
-            method: "GET",
-            data: {
-                "givemethenextid": "true"
-            },
-            success: function (result) {
-                console.log(result)
-                console.log('It got to changing the add id label')
-                $('#uniqueIdAddLabel').html(result);
-                console.log('its done')
-            }
-        });
-    });
-    // Final Add Button
-    $(document).on(
-        'click',
-        'button[role="finaladdbutton"]',
-
-        function (e) {
-            $.ajax({
-                url: "finaladdbutton",
-                method: "GET",
-                data: {
-                    "name": $('#itinerarynameinput').val()
-                },
-                success: function (result) {
-                    document.location.href = "/itinerary";
-                }
-            });
-        }
-    );
-    // Final Open Model Opener
-    $(document).on(
-        'click',
-        'button[role="finalOpenModalOpener"]',
-
-        function (e) {
-            $.ajax({
-                url: "finalOpenModalOpener",
-                method: "GET",
-                data: {
-                    "id": $('#itineraryDropdownOptions').val()
-                },
-                success: function (result) {
-                    document.location.href = "/itinerary";
-                }
-            });
-        }
-    );
     // Final Add Day Modal Adder
     $(document).on(
         'click',
@@ -70,7 +17,7 @@ $(document).ready(function () {
                 data: {
                     "name": $('#addDayModalNameInput').val(),
                     "description": $('#addDayModalDescriptionBox').val(),
-                    "myInteneraryID": $('#InteneraryIdLabel').html()
+                    "myInteneraryID": $('.InteneraryIdDiv').attr('id')
                 },
                 success: function (result) {
                     location.reload();
@@ -224,23 +171,6 @@ $(document).ready(function () {
             });
         }
     );
-    $(".openItineraryModalOpener").click(function () {
-        $.ajax({
-            url: "/getItineraries",
-            method: "GET",
-            success: function (result) {
-                $("#itineraryDropdownOptions option").remove();
-                $('#itineraryDropdownOptions').append("<option selected>---Select Itinerary---</option>")
-                jsonLoadableResult = result.replace(/'/g, '"')
-                jsonResult = JSON.parse(jsonLoadableResult)
-                for (var i = 0; i < jsonResult.length; i++) {
-                    console.log(jsonResult[i])
-                    $('#itineraryDropdownOptions').append("<option value='" + jsonResult[i][0] + "'>" + jsonResult[i][1] + "</option>")
-                }
-            }
-        });
-        $('#openModal').modal('show')
-    })
 });
 
 

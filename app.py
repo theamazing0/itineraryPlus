@@ -267,6 +267,8 @@ def getItineraries(methods=['GET', 'POST']):
     dumpedItineraries = json.dumps(jsonSerializableItineraries)
     loadedItineraries = json.loads(dumpedItineraries)
 
+    conn.close()
+
     return str(loadedItineraries)
 
 

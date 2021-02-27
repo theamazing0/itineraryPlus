@@ -3,6 +3,7 @@
 
     <head>
         <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{{url_for('static', filename='itinerary.js')}}"></script>
 
         <!-- CSS -->
@@ -20,8 +21,7 @@
         <div class="card itineraryControlCard text-center shadow-lg p-3 mb-5 bg-white rounded w-50">
             <div class="card-body">
                 <h2 class="card-title">{{ myName }}</h2>
-                <p class="card-text uniqueIDOnCard">Unique Id: <span id="InteneraryIdLabel">{{ itineraryInUseID
-                        }}</span></p>
+                <div style="display: inline" id="{{ itineraryInUseID }}" class = "InteneraryIdDiv"></div>
                 <a href="#" class="btn btn-secondary"><i class="fa fa-print" aria-hidden="true"></i></a>
                 <a href="#addDayModal" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus"
                         aria-hidden="true"></i></a>
@@ -37,16 +37,16 @@
             <div class="card-body" id="{{ day }}">
                 <h3 class="card-title">{% set thisDay = day['dayrow'] %}{{ thisDay[2] }}</h3>
                 <h4 class="font-weight-light dayDescription">{{ thisDay[3] }}</h4>
-                <a class="btn btn-danger deleteDayModalOpener" data-toggle="#deleteDayModal"><i
-                        class="fa fa-trash" aria-hidden="true"></i></a>
-                <div style="display: inline" id = "{{day}}"></div>
+                <a class="btn btn-danger deleteDayModalOpener" data-toggle="#deleteDayModal"><i class="fa fa-trash"
+                        aria-hidden="true"></i></a>
+                <div style="display: inline" id="{{day}}"></div>
                 <a id="{{ day }}" class="btn btn-info dayEventsModalOpener" data-toggle="#dayEventsModal"><i
                         class="fa fa-info-circle" aria-hidden="true"></i></a>
             </div>
         </div>
         {% endfor %}
 
-        
+
 
         <!--* DayEvents Modal-->
         <div id="dayEventsModal" class="modal fade" role="dialog">
