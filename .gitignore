@@ -142,3 +142,7 @@ cython_debug/
 
 #database
 myData.db
+
+#personal-related
+
+personal-related
