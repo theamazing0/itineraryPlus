@@ -51,14 +51,46 @@ SERVER_LOCAL_IP = The local IP Adress of the server
 
 ## Credits
 
-### Taj Mahal: 
+### In Website
+
+#### Taj Mahal: 
 
 By Joel Godwin - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=59621210
 
-### Golden Gate Bridge:
+#### Golden Gate Bridge:
 
 By Rich Niewiroski Jr. - http://www.projectrich.com/gallery, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1520007
 
-### Favicon
+#### Favicon
 
 Made by https://www.flaticon.com/authors/mynamepong (mynamepong) from https://www.flaticon.com/ (flaticon)
+
+### In Documentation
+
+#### HTML, CSS, and JS logos
+
+https://www.freepnglogos.com/images/html5-logo-31816.html html5 logo, devextreme multi purpose controls html javascript from freepnglogos.com
+
+#### Bootstrap Logo
+
+By Bootstrap - http://blog.getbootstrap.com, Public Domain, https://commons.wikimedia.org/w/index.php?curid=31249826
+
+#### jQuery Logo
+
+By http://brand.jquery.org - http://brand.jquery.org/logos/#the-mark, Public Domain, https://commons.wikimedia.org/w/index.php?curid=73373177
+
+#### Python Logo
+
+By www.python.org - http://www.python.org/community/logos/, GPL, https://commons.wikimedia.org/w/index.php?curid=34991637
+
+#### Flask Logo
+
+By Armin Ronacher - http://flask.pocoo.org/static/logo/flask.svg, Copyrighted free use, https://commons.wikimedia.org/w/index.php?curid=19501815
+
+#### Jinja Logo
+
+By Jinja Team - https://github.com/pallets/jinja/blob/master/artwork/jinjalogo.svg, BSD, https://commons.wikimedia.org/w/index.php?curid=74922651
+
+#### Sqlite3 Logo
+
+By Part of the SQLite documentation, which has been released by author D. Richard Hipp to the public domain. SVG conversion by Mike Toews. - SVG created from sqlite370.eps, distributed with version 3.7.2 documentation, Public Domain, https://commons.wikimedia.org/w/index.php?curid=11675072
